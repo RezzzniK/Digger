@@ -12,6 +12,9 @@ public class PlayerInput : MonoBehaviour
     Rigidbody2D playerRigedBody;
     //[SerializeField] Animator clipStates;
     Animator clipStates;
+    // bool ontheGround;
+    CapsuleCollider2D colider;
+    // LayerMask layers;
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float jumpSpeed = 5f;
     // [SerializeField] float gravity=1f;
@@ -19,6 +22,7 @@ public class PlayerInput : MonoBehaviour
     {
         playerRigedBody = GetComponent<Rigidbody2D>();
         clipStates = GetComponent<Animator>();
+        colider= GetComponent<CapsuleCollider2D>();
 
     }
 
@@ -27,6 +31,7 @@ public class PlayerInput : MonoBehaviour
     {
         Run();
         FlipSprite();
+
     }
     void OnMove(InputValue value)
     {
@@ -41,10 +46,13 @@ public class PlayerInput : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
-        if (value.isPressed)
-        {
-            playerRigedBody.velocity += new Vector2(0f, jumpSpeed);
-        }
+            Debug.Log(LayerMask.GetMask("Ground"));
+            if(colider.IsTouchingLayers(LayerMask.GetMask("Ground"))){
+
+                if (value.isPressed )     {
+                    playerRigedBody.velocity += new Vector2(0f, jumpSpeed);
+                }
+            }
     }
     void Run()
     {
@@ -64,5 +72,13 @@ public class PlayerInput : MonoBehaviour
         }
 
     }
+    //  void  OnCollisionEnter2D(Collision2D other) {
+        
+     
+    //     if (other.gameObject.tag == "Ground"){
+    //         Debug.Log("GROUND");
+    //         ontheGround=true;
+    //     }
+    // }
 
 }
