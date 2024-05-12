@@ -47,13 +47,19 @@ public class PlayerInput : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
-            Debug.Log(LayerMask.GetMask("Ground"));
-            if(colider.IsTouchingLayers(LayerMask.GetMask("Ground"))){
+            // Debug.Log(LayerMask.GetMask("Ground"));
+            if(colider.IsTouchingLayers(LayerMask.GetMask("Ground"))) {
 
                 if (value.isPressed )     {
                     playerRigedBody.velocity += new Vector2(0f, jumpSpeed);
                 }
             }
+            // else if(colider.IsTouchingLayers(LayerMask.GetMask("Ladder"))){
+            //      if (value.isPressed )     {
+            //         Debug.Log("LADDER");
+            //         playerRigedBody.velocity += new Vector2(0f, jumpSpeed*15);
+            //     }
+            // }
     }
     void Run()
     {
@@ -79,18 +85,9 @@ public class PlayerInput : MonoBehaviour
              playerRigedBody.velocity = playerYVelocity;
                 bool playerVerticalSpeed = Mathf.Abs(playerRigedBody.velocity.y) > Mathf.Epsilon;
                 clipStates.SetBool("isClimbing",playerVerticalSpeed);
-                // if (value.isPressed )     {
-                //     playerRigedBody.velocity += new Vector2(0f, jumpSpeed);
-                // }
+              
             }
     }
-    //  void  OnCollisionEnter2D(Collision2D other) {
-        
-     
-    //     if (other.gameObject.tag == "Ground"){
-    //         Debug.Log("GROUND");
-    //         ontheGround=true;
-    //     }
-    // }
+   
 
 }
