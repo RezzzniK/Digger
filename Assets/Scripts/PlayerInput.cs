@@ -56,6 +56,7 @@ public class PlayerInput : MonoBehaviour
                 playerRigedBody.velocity += new Vector2(0f, jumpSpeed);
             }
         }
+       
         // else if(colider.IsTouchingLayers(LayerMask.GetMask("Ladder"))){
         //      if (value.isPressed )     {
         //         Debug.Log("LADDER");
