@@ -17,13 +17,13 @@ public class PlayerInput : MonoBehaviour
     // LayerMask layers;
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float jumpSpeed = 5f;
-    // [SerializeField] float gravity=1f;
+     float startGravityScale;
     void Start()
     {
         playerRigedBody = GetComponent<Rigidbody2D>();
         clipStates = GetComponent<Animator>();
         colider = GetComponent<CapsuleCollider2D>();
-
+        startGravityScale=playerRigedBody.gravityScale;
     }
 
 
@@ -85,7 +85,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (colider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
         {
-            playerRigedBody.gravityScale = 0;
+            playerRigedBody.gravityScale = 0f;
             Vector2 playerYVelocity = new Vector2(playerRigedBody.velocity.x, movingInput.y * movementSpeed);
             playerRigedBody.velocity = playerYVelocity;
             bool playerVerticalSpeed = Mathf.Abs(playerRigedBody.velocity.y) > Mathf.Epsilon;
@@ -94,7 +94,7 @@ public class PlayerInput : MonoBehaviour
         }
         else
         {
-            playerRigedBody.gravityScale = 5;
+            playerRigedBody.gravityScale = startGravityScale;
         }
     }
 
