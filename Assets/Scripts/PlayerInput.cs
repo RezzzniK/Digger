@@ -22,7 +22,7 @@ public class PlayerInput : MonoBehaviour
     {
         playerRigedBody = GetComponent<Rigidbody2D>();
         clipStates = GetComponent<Animator>();
-        colider= GetComponent<CapsuleCollider2D>();
+        colider = GetComponent<CapsuleCollider2D>();
 
     }
 
@@ -47,19 +47,21 @@ public class PlayerInput : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
-            // Debug.Log(LayerMask.GetMask("Ground"));
-            if(colider.IsTouchingLayers(LayerMask.GetMask("Ground"))) {
+        // Debug.Log(LayerMask.GetMask("Ground"));
+        if (colider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
 
-                if (value.isPressed )     {
-                    playerRigedBody.velocity += new Vector2(0f, jumpSpeed);
-                }
+            if (value.isPressed)
+            {
+                playerRigedBody.velocity += new Vector2(0f, jumpSpeed);
             }
-            // else if(colider.IsTouchingLayers(LayerMask.GetMask("Ladder"))){
-            //      if (value.isPressed )     {
-            //         Debug.Log("LADDER");
-            //         playerRigedBody.velocity += new Vector2(0f, jumpSpeed*15);
-            //     }
-            // }
+        }
+        // else if(colider.IsTouchingLayers(LayerMask.GetMask("Ladder"))){
+        //      if (value.isPressed )     {
+        //         Debug.Log("LADDER");
+        //         playerRigedBody.velocity += new Vector2(0f, jumpSpeed*15);
+        //     }
+        // }
     }
     void Run()
     {
@@ -79,15 +81,22 @@ public class PlayerInput : MonoBehaviour
         }
 
     }
-    void OnLadder(){
-         if(colider.IsTouchingLayers(LayerMask.GetMask("Ladder"))){
-             Vector2 playerYVelocity = new Vector2(playerRigedBody.velocity.x,movingInput.y * movementSpeed);
-             playerRigedBody.velocity = playerYVelocity;
-                bool playerVerticalSpeed = Mathf.Abs(playerRigedBody.velocity.y) > Mathf.Epsilon;
-                clipStates.SetBool("isClimbing",playerVerticalSpeed);
-              
-            }
+    void OnLadder()
+    {
+        if (colider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+        {
+            playerRigedBody.gravityScale = 0;
+            Vector2 playerYVelocity = new Vector2(playerRigedBody.velocity.x, movingInput.y * movementSpeed);
+            playerRigedBody.velocity = playerYVelocity;
+            bool playerVerticalSpeed = Mathf.Abs(playerRigedBody.velocity.y) > Mathf.Epsilon;
+            clipStates.SetBool("isClimbing", playerVerticalSpeed);
+
+        }
+        else
+        {
+            playerRigedBody.gravityScale = 5;
+        }
     }
-   
+
 
 }
