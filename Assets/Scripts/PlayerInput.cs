@@ -14,16 +14,18 @@ public class PlayerInput : MonoBehaviour
     Animator clipStates;
     // bool ontheGround;
     CapsuleCollider2D colider;
+    BoxCollider2D feetColider;
     // LayerMask layers;
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float jumpSpeed = 5f;
-     float startGravityScale;
+    float startGravityScale;
     void Start()
     {
         playerRigedBody = GetComponent<Rigidbody2D>();
         clipStates = GetComponent<Animator>();
         colider = GetComponent<CapsuleCollider2D>();
-        startGravityScale=playerRigedBody.gravityScale;
+        feetColider = GetComponent<BoxCollider2D>();
+        startGravityScale = playerRigedBody.gravityScale;
     }
 
 
@@ -48,15 +50,16 @@ public class PlayerInput : MonoBehaviour
     void OnJump(InputValue value)
     {
         // Debug.Log(LayerMask.GetMask("Ground"));
-        if (colider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (feetColider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
+            //Debug.Log("FEET TOUCHIN THE GROUND");
 
             if (value.isPressed)
             {
                 playerRigedBody.velocity += new Vector2(0f, jumpSpeed);
             }
         }
-       
+
         // else if(colider.IsTouchingLayers(LayerMask.GetMask("Ladder"))){
         //      if (value.isPressed )     {
         //         Debug.Log("LADDER");
@@ -84,7 +87,7 @@ public class PlayerInput : MonoBehaviour
     }
     void OnLadder()
     {
-        if (colider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+        if (feetColider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
         {
             playerRigedBody.gravityScale = 0f;
             Vector2 playerYVelocity = new Vector2(playerRigedBody.velocity.x, movingInput.y * movementSpeed);
