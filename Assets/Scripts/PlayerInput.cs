@@ -112,9 +112,11 @@ public class PlayerInput : MonoBehaviour
     }
 
           void Die(){
-            if (playerRigedBody.IsTouchingLayers(LayerMask.GetMask("Enemy"))) isAlive=false;
-
-            Debug.Log("Game Over");
+            if (playerRigedBody.IsTouchingLayers(LayerMask.GetMask("Enemy"))) {
+                isAlive=false;
+                playerRigedBody.velocity += new Vector2(0f, jumpSpeed);
+                clipStates.SetTrigger("Dying");
+                Debug.Log("Game Over");}
           }
 
 
