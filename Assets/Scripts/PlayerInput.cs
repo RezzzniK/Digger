@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour
     // bool ontheGround;
     CapsuleCollider2D colider;
     BoxCollider2D feetColider;
+    bool isAlive;
     // LayerMask layers;
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float jumpSpeed = 5f;
@@ -26,18 +27,24 @@ public class PlayerInput : MonoBehaviour
         colider = GetComponent<CapsuleCollider2D>();
         feetColider = GetComponent<BoxCollider2D>();
         startGravityScale = playerRigedBody.gravityScale;
+        isAlive=true;
     }
 
 
     void Update()
     {
+        if (!isAlive){return;}
+
         Run();
         FlipSprite();
         OnLadder();
+        Die();
 
     }
     void OnMove(InputValue value)
     {
+        if (!isAlive){return;}
+
         movingInput = value.Get<Vector2>();
         Debug.Log(movingInput);
         //  if(movingInput.x>=0){
@@ -49,6 +56,8 @@ public class PlayerInput : MonoBehaviour
     }
     void OnJump(InputValue value)
     {
+        if (!isAlive){return;}
+
         // Debug.Log(LayerMask.GetMask("Ground"));
         if (feetColider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
@@ -101,6 +110,13 @@ public class PlayerInput : MonoBehaviour
             playerRigedBody.gravityScale = startGravityScale;
         }
     }
+
+          void Die(){
+            if (playerRigedBody.IsTouchingLayers(LayerMask.GetMask("Enemy"))) isAlive=false;
+
+            Debug.Log("Game Over");
+          }
+
 
 
 }
