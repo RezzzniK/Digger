@@ -20,7 +20,10 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] Vector2 deathKick;
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform gun;
     float startGravityScale;
+    
     void Start()
     {
         playerRigedBody = GetComponent<Rigidbody2D>();
@@ -29,6 +32,7 @@ public class PlayerInput : MonoBehaviour
         feetColider = GetComponent<BoxCollider2D>();
         startGravityScale = playerRigedBody.gravityScale;
         isAlive = true;
+        //bullet=FindAnyObjectByType<GameObject>();
     }
 
 
@@ -77,6 +81,13 @@ public class PlayerInput : MonoBehaviour
         //     }
         // }
     }
+    void OnFire(InputValue inputValue){
+        if (!isAlive) { return; }
+        // if (inputValue.isPressed){
+        //     Debug.Log("SFDFFF");
+        // }
+        Instantiate(bullet,gun.position,transform.rotation);
+    }
     void Run()
     {
 
@@ -114,7 +125,7 @@ public class PlayerInput : MonoBehaviour
 
     void Die()
     {
-        if (playerRigedBody.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+        if (playerRigedBody.IsTouchingLayers(LayerMask.GetMask("Enemy","Spikes")) )//|| playerRigedBody.IsTouchingLayers(LayerMask.GetMask("Spikes")))
         {
             isAlive = false;
             playerRigedBody.velocity += deathKick;
