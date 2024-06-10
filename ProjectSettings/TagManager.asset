@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - Spikes
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,8 @@ TagManager:
   - Player
   - Bouncing
   - Enemy
-  - 
-  - 
+  - Spikes
+  - Bullet
   - 
   - 
   - 
@@ -57,6 +59,9 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 2822525723
+    locked: 0
+  - name: Spikes
+    uniqueID: 3745212087
     locked: 0
   - name: Player
     uniqueID: 1044819997
