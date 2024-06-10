@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Spikes
   - Bullet
+  - Exit
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Enemy
   - Spikes
   - Bullet
-  - 
+  - Interactables
   - 
   - 
   - 
@@ -62,6 +63,9 @@ TagManager:
     locked: 0
   - name: Spikes
     uniqueID: 3745212087
+    locked: 0
+  - name: Interactables
+    uniqueID: 1448433501
     locked: 0
   - name: Player
     uniqueID: 1044819997
